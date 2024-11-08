@@ -33,26 +33,26 @@ class App extends Component {
     super(props);
 
     this.state = {
-      viewCompleted: true,
+      viewCompleted: false,
       todoList: todoItems,
     };
   }
-
+  
   
   displayCompleted = (status) => {
-      return this.setState({viewCompleted: status})
-  }
+    this.setState({viewCompleted: status})
+    }
 
 
   renderTabList = () => {
     return (
-      <div className='nav nav-tabs'>
+      <div className='nav nav-tabs' >
         <span className= {this.state.viewCompleted ? 'nav-link active': 'nav-link'}
-          onclik={this.displayCompleted(true)}>
+          onClick={() =>this.displayCompleted(true)}>
           Complete
         </span>
-        <span className={this.state.viewCompleted? 'nav-link': 'navlink active'}
-          onClick={this.displayCompleted(false)}>
+        <span className= {this.state.viewCompleted ? 'nav-link': 'nav-link active'}
+          onClick={() =>this.displayCompleted(false)}>
           Incomplete
         </span>
       </div>
@@ -62,7 +62,7 @@ class App extends Component {
 
   renderItems =() => {
     const newItems = this.state.todoList.filter(
-      (item) => item.completed === true
+      (item) => item.completed === this.state.viewCompleted
     );
 
     return newItems.map((item) => (
