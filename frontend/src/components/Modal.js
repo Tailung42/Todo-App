@@ -36,7 +36,7 @@ class CustomModal extends Component {
     render() {
         const {toggle, onSave} = this.props;
         return (
-            <Modal isOpen toggle={toggle}>
+            <Modal isOpen={true} toggle={toggle}>
                 <ModalHeader toggle={toggle}>Todo item</ModalHeader>
                 <ModalBody>
                     <Form>
@@ -46,7 +46,7 @@ class CustomModal extends Component {
                             type="text"
                             id="todo-title"
                             name="title"
-                            value={this.state.activeItem.title}
+                            defaultValue={this.state.activeItem.title}
                             onChange={this.handleChange}
                             placeholder="Enter Todo Title"
                             />
@@ -56,18 +56,18 @@ class CustomModal extends Component {
                             <Input 
                                 id="todo-description"
                                 type="text"
-                                value={this.state.activeItem.description}
+                                defaultValue={this.state.activeItem.description}
                                 onChange={this.handleChange}
                                 placeholder="Enter Todo Descriptin"
                                 />
                         </FormGroup>
                         <FormGroup check> 
                             <label check>
-                                <Input
-                                type="check"
+                                <input
+                                type="checkbox"
                                 name="completed"
-                                checked={this.state.activeItem.completed}
                                 onChange={this.handleChange}
+                                checked = {this.state.activeItem.completed}
                                 />
                                 completed
                             </label>
