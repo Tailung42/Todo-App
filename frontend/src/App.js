@@ -1,32 +1,6 @@
 import React, {Component} from 'react';
 import CustomModal from './components/Modal';
-
-const todoItems = [
-  {
-    id: 1,
-    title: "project layout",
-    description: "Need to design the overall look   the webapp before writing code.",
-    completed: false,
-  },
-  {
-    id: 2,
-    title: "Study",
-    description: "Read Algebra and History textbook for the upcoming test",
-    completed: false,
-  },
-  {
-    id: 3,
-    title: "Sammy's books",
-    description: "Go to library to return Sammy's books",
-    completed: true,
-  },
-  {
-    id: 4,
-    title: "Article",
-    description: "Write article on how to use Django with React",
-    completed: false,
-  },
-];
+import axios from 'axios';
 
 
 class App extends Component {
@@ -35,7 +9,7 @@ class App extends Component {
 
     this.state = {
       viewCompleted: false,
-      todoList: todoItems,
+      todoList: [],
       modal: false,
       activeItem: {
         title: "",
@@ -45,23 +19,36 @@ class App extends Component {
     };
   }
 
+  
   toggle = () => {
     this.setState({modal: !this.state.modal})
   };
 
-  submitItem = (item) => {
+
+  handleSubmit = (item) => {
     this.toggle();
-    alert("Save" + JSON.stringify(item))
+    // alert("Save" + JSON.stringify(item))
+    if (item.id) {
+      axios.put(`api/todos/${item.id}/`, item)
+      .then(response => this.refreshList());
+    }
+    else {
+      axios.post(`api/todos/`,item)
+      .then(response => this.refreshList());
+    }
   };
 
-  deleteItem = (item) => {
+
+  handleDelete = (item) => {
     alert("Delete" + JSON.stringify(item))
   };
+
 
   createItem = () => {
     const item = {title: "", description: "", completed:false};
     this.setState({activeItem: item, modal: !this.state.modal})
   };
+
 
   editItem = (item) => {
     this.setState({activeItem: item, modal: !this.state.modal})
@@ -110,7 +97,7 @@ class App extends Component {
           </button>
           <button 
               className="btn btn-danger"
-              onClick={() => this.deleteItem(item)}
+              onClick={() => this.handleDelete(item)}
             >
             Delete
           </button>
@@ -144,7 +131,7 @@ class App extends Component {
           <CustomModal
             activeItem={this.state.activeItem}
             toggle={this.toggle}
-            onSave={this.submitItem}
+            onSave={this.handleSubmit}
           />
         ) : null}
       </main>
