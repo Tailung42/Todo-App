@@ -27,10 +27,8 @@ class CustomModal extends Component {
         if (event.target.type === 'checkbox') {
             value = event.target.checked
         }
-        
-        this.setState({...this.state,[name]: value})
+        this.setState({...this.state.activeItem, [name]: value})
     };
-
 
 
     render() {
@@ -63,11 +61,11 @@ class CustomModal extends Component {
                         </FormGroup>
                         <FormGroup check> 
                             <label check>
-                                <input
+                                <Input
                                 type="checkbox"
                                 name="completed"
                                 onChange={this.handleChange}
-                                checked = {this.state.activeItem.completed}
+                                defaultChecked = {this.state.activeItem.completed}
                                 />
                                 completed
                             </label>
