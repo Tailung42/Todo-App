@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Modal from './components/Modal';
+import CustomModal from './components/Modal';
 
 const todoItems = [
   {
@@ -44,6 +44,28 @@ class App extends Component {
       },
     };
   }
+
+  toggle = () => {
+    this.setState({modal: !this.state.modal})
+  };
+
+  submitItem = (item) => {
+    this.toggle();
+    alert("Save" + JSON.stringify(item))
+  };
+
+  deleteItem = (item) => {
+    alert("Delete" + JSON.stringify(item))
+  };
+
+  createItem = () => {
+    const item = {title: "", description: "", completed:false};
+    this.setState({activeItem: item, modal: !this.state.modal})
+  };
+
+  editItem = (item) => {
+    this.setState({activeItem: item, modal: !this.state.modal})
+  };
   
   
   displayCompleted = (status) => {
@@ -80,10 +102,16 @@ class App extends Component {
           {item.title} 
         </span>
         <span>
-          <button className="btn btn-secondary mr-2">
+          <button
+            className="btn btn-secondary mr-2"
+            onClick={() => this.editItem(item)}
+            >
             Edit
           </button>
-          <button className="btn btn-danger">
+          <button 
+              className="btn btn-danger"
+              onClick={() => this.deleteItem(item)}
+            >
             Delete
           </button>
         </span>
@@ -99,7 +127,10 @@ class App extends Component {
         <div className='row'>
           <div className='col-md-6 col-sm-10  mx-auto p-0'>
             <div className='card p-3'>
-              <button className=' btn btn-primary mb-4'>
+              <button 
+                className=' btn btn-primary mb-4'
+                onClick={() => this.createItem()}
+              >
                 Add Task
               </button>
               {this.renderTabList()}
@@ -109,6 +140,13 @@ class App extends Component {
             </div>
           </div>
         </div>
+        {this.state.modal ? (
+          <CustomModal
+            activeItem={this.state.activeItem}
+            toggle={this.toggle}
+            onSave={this.submitItem}
+          />
+        ) : null}
       </main>
     );
   }
