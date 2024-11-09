@@ -19,9 +19,19 @@ class App extends Component {
     };
   }
 
-  
+  componentDidMount() {
+    this.refreshList();
+  }
+
+
   toggle = () => {
     this.setState({modal: !this.state.modal})
+  };
+
+
+  refreshList = () => {
+    axios.get('/api/todos/')
+    .then(response => this.setState({todoList: response.data}))
   };
 
 
@@ -29,18 +39,19 @@ class App extends Component {
     this.toggle();
     // alert("Save" + JSON.stringify(item))
     if (item.id) {
-      axios.put(`api/todos/${item.id}/`, item)
+      axios.put(`/api/todos/${item.id}/`, item)
       .then(response => this.refreshList());
     }
     else {
-      axios.post(`api/todos/`,item)
+      axios.post(`/api/todos/`,item)
       .then(response => this.refreshList());
     }
   };
 
 
   handleDelete = (item) => {
-    alert("Delete" + JSON.stringify(item))
+    // alert("Delete" + JSON.stringify(item))
+    axios.delete(`api/todos/${item.id}`)
   };
 
 
