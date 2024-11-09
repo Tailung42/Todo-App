@@ -22,8 +22,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-/db.sqlite3
- /todo/__pycache__
- /todolist/__pycache__
- /*.pyc 
+../db.sqlite3
+ ../todo/__pycache__
+ ../todolist/__pycache__
+ ../*.pyc 
 
