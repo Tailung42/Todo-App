@@ -27,8 +27,10 @@ class CustomModal extends Component {
         if (event.target.type === 'checkbox') {
             value = event.target.checked
         }
-        this.setState({...this.state.activeItem, [name]: value})
-    };
+
+        const activeItem = { ...this.state.activeItem, [name]: value };
+
+        this.setState({ activeItem });    };
 
 
     render() {
@@ -54,18 +56,19 @@ class CustomModal extends Component {
                             <Input 
                                 id="todo-description"
                                 type="text"
+                                name="description"
                                 defaultValue={this.state.activeItem.description}
                                 onChange={this.handleChange}
                                 placeholder="Enter Todo Descriptin"
                                 />
                         </FormGroup>
-                        <FormGroup check> 
-                            <label check>
+                        <FormGroup> 
+                            <label>
                                 <Input
                                 type="checkbox"
                                 name="completed"
                                 onChange={this.handleChange}
-                                defaultChecked = {this.state.activeItem.completed}
+                                defaultChecked = {() => onSave(this.state.activeItem)}
                                 />
                                 completed
                             </label>
