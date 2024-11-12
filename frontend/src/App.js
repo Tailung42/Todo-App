@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
+import React, {Component, useState,componentDidMount} from 'react';
 import CustomModal from './components/Modal';
 import axios from 'axios';
 
 
-class App extends Component {
+class nothing extends Component {
   constructor(props) {
     super(props);
 
@@ -148,5 +148,17 @@ class App extends Component {
       </main>
     );
   }
+}
+
+function App() {
+  const [count,setCount] = useState(22);
+  return (
+    <div>
+   <h1>count: {count} </h1>
+   <button onClick={() => setCount(count+1)}>
+    count
+  </button>
+   </div>
+  )
 }
 export default App;
